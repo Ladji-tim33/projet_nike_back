@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: nike-backend
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn nike_backend.wsgi:application"
+    envVars:
+      - key: DEBUG
+        value: False
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DB_NAME
+        fromDatabase:
+          name: nom_base_render
+          property: name
+      - key: DB_USER
+        fromDatabase:
+          name: nom_base_render
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: nom_base_render
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: nom_base_render
+          property: host
