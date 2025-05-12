@@ -23,11 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-e#cyul_umw)2_322#1ng$0t8mia212qw#y@(*rda)owm*a3y8g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
 
 
-DEBUG = config('DEBUG', default=False, cast=bool)
-
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 
 # Application definition
 
@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
 ]
+AUTH_USER_MODEL = 'users.CustomUser'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,16 +58,11 @@ MIDDLEWARE = [
 
     'corsheaders.middleware.CorsMiddleware',
 ]
-'django.middleware.security.SecurityMiddleware',
 
 ROOT_URLCONF = 'nike_backend.urls'
 
 # Configuration CORS (à adapter selon ton front)
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8081",  # Expo en local
-    "http://127.0.0.1:8000",   # API en local
-]
-
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Configuration REST Framework
 REST_FRAMEWORK = {
@@ -75,9 +72,6 @@ REST_FRAMEWORK = {
 }
 
 from datetime import timedelta
-from decouple import config
-
-AUTH_USER_MODEL = 'users.CustomUser'
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
@@ -111,12 +105,16 @@ WSGI_APPLICATION = 'nike_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-import dj_database_url
-
 DATABASES = {
-    'default': dj_database_url.config(default=config('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'AppNike',           # ← le nom de ta base
+        'USER': 'postgres',          # ← ton utilisateur PostgreSQL
+        'PASSWORD': 'Mpintey98',     # ← le mot de passe
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
-
 
 
 
@@ -154,21 +152,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-import os
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Pour collectstatic sur Render
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-
-
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-
-WSGI_APPLICATION = 'nike_backend.wsgi.application'
