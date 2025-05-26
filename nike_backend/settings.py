@@ -117,15 +117,15 @@ WSGI_APPLICATION = 'nike_backend.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'DATABASE_URL': dj_database_url.parse(config('DATABASE_URL')),
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-    }
+    'default': 
+        # 'ENGINE': 'django.db.backends.postgresql',
+        dj_database_url.parse(config('DATABASE_URL')),
+        # 'NAME': config('DB_NAME'),
+        # 'USER': config('DB_USER'),
+        # 'PASSWORD': config('DB_PASSWORD'),
+        # 'HOST': config('DB_HOST'),
+        # 'PORT': config('DB_PORT'),
+
 }
 
 
