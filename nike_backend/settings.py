@@ -52,6 +52,10 @@ INSTALLED_APPS = [
     'users',
     'products',
     'django_filters',
+
+    # ...
+    'cloudinary',
+    'cloudinary_storage',
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -128,6 +132,14 @@ DATABASES = {
 
 }
 
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 
