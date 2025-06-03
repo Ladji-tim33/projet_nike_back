@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'products',
     'django_filters',
 
-    # ...
     'cloudinary',
     'cloudinary_storage',
 ]
